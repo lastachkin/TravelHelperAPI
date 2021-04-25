@@ -7,9 +7,27 @@ using Server.Models;
 namespace Server.Controllers
 {
     [Route("api/[controller]")]
-    public class RegisterController : Controller
+    public class UserController : Controller
     {
         TravelHelperContext dbContext = new TravelHelperContext();
+
+        [HttpGet]
+        public string Get(string login, string password)
+        {
+            if (dbContext.Users.Any(user => user.Login.Equals(login)))
+            {
+                Users user = dbContext.Users.Where(u => u.Login.Equals(login)).First();
+                if (user.Password.Equals(password))
+                    return JsonConvert.SerializeObject(user);
+                else
+                    return JsonConvert.SerializeObject("Incorrect password");
+            }
+            else
+            {
+                return JsonConvert.SerializeObject("Not found");
+            }
+        }
+
 
         [HttpPost]
         public string Post([FromBody] Users value)
@@ -30,7 +48,7 @@ namespace Server.Controllers
                 {
                     dbContext.Add(user);
                     dbContext.SaveChanges();
-                    return JsonConvert.SerializeObject("Register OK - Remote DB");
+                    return JsonConvert.SerializeObject("Create User OK - Remote DB");
                 }
                 catch (Exception e)
                 {
