@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Server.Models
+namespace TravelHelperAPI.Models
 {
     public partial class TravelHelperContext : DbContext
     {
@@ -25,7 +25,6 @@ namespace Server.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=TravelHelper;Trusted_Connection=True;");
             }
         }
@@ -34,14 +33,16 @@ namespace Server.Models
         {
             modelBuilder.Entity<Hotels>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
 
                 entity.Property(e => e.Address)
                     .IsRequired()
                     .HasColumnName("address")
                     .HasMaxLength(50);
-
-                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Rating).HasColumnName("rating");
 
@@ -53,15 +54,22 @@ namespace Server.Models
 
             modelBuilder.Entity<Reservations>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
 
                 entity.Property(e => e.EndDate)
                     .HasColumnName("end_date")
                     .HasColumnType("date");
 
-                entity.Property(e => e.HotelId).HasColumnName("hotel_id");
-
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.HotelId)
+                    .IsRequired()
+                    .HasColumnName("hotel_id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
 
                 entity.Property(e => e.StartDate)
                     .HasColumnName("start_date")
@@ -70,20 +78,32 @@ namespace Server.Models
                 entity.Property(e => e.Status)
                     .IsRequired()
                     .HasColumnName("status")
-                    .HasMaxLength(3)
+                    .HasMaxLength(1)
                     .IsUnicode(false)
                     .IsFixedLength();
 
-                entity.Property(e => e.UserId).HasColumnName("user_id");
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasColumnName("user_id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Reviews>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
 
-                entity.Property(e => e.HotelId).HasColumnName("hotel_id");
-
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.HotelId)
+                    .IsRequired()
+                    .HasColumnName("hotel_id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
 
                 entity.Property(e => e.Rate).HasColumnName("rate");
 
@@ -91,20 +111,32 @@ namespace Server.Models
                     .HasColumnName("text")
                     .HasColumnType("text");
 
-                entity.Property(e => e.UserId).HasColumnName("user_id");
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasColumnName("user_id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Rooms>(entity =>
             {
-                entity.HasNoKey();
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
 
                 entity.Property(e => e.Cost).HasColumnName("cost");
 
                 entity.Property(e => e.Count).HasColumnName("count");
 
-                entity.Property(e => e.HotelId).HasColumnName("hotel_id");
-
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.HotelId)
+                    .IsRequired()
+                    .HasColumnName("hotel_id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
 
                 entity.Property(e => e.Type)
                     .IsRequired()

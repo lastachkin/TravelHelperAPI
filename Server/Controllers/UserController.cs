@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Server.Models;
+using TravelHelperAPI.Models;
 
 namespace Server.Controllers
 {
@@ -28,7 +28,6 @@ namespace Server.Controllers
             }
         }
 
-
         [HttpPost]
         public string Post([FromBody] Users value)
         {
@@ -48,7 +47,7 @@ namespace Server.Controllers
                 {
                     dbContext.Add(user);
                     dbContext.SaveChanges();
-                    return JsonConvert.SerializeObject("Create User OK - Remote DB");
+                    return JsonConvert.SerializeObject("User created");
                 }
                 catch (Exception e)
                 {
@@ -57,9 +56,8 @@ namespace Server.Controllers
             }
             else
             {
-                return JsonConvert.SerializeObject("User already exists - Remote DB");
+                return JsonConvert.SerializeObject("User already exists");
             }
         }
-
     }
 }
