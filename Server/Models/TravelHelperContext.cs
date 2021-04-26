@@ -25,6 +25,7 @@ namespace TravelHelperAPI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=TravelHelper;Trusted_Connection=True;");
             }
         }
@@ -42,6 +43,10 @@ namespace TravelHelperAPI.Models
                 entity.Property(e => e.Address)
                     .IsRequired()
                     .HasColumnName("address")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.City)
+                    .HasColumnName("city")
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Rating).HasColumnName("rating");

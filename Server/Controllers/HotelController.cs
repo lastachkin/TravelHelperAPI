@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace TravelHelperAPI.Controllers
 {
+    [Route("api/[controller]")]
     public class HotelController : Controller
     {
         TravelHelperContext dbContext = new TravelHelperContext();
@@ -19,7 +20,6 @@ namespace TravelHelperAPI.Controllers
                 hotel.Id = Guid.NewGuid().ToString();
                 hotel.Title = value.Title;
                 hotel.Address = value.Address;
-                hotel.Rating = value.Rating;
 
                 try
                 {
