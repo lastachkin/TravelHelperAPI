@@ -19,6 +19,7 @@ namespace TravelHelperAPI.Controllers
                 Hotels hotel = new Hotels();
                 hotel.Id = Guid.NewGuid().ToString();
                 hotel.Title = value.Title;
+                hotel.City = value.City;        
                 hotel.Address = value.Address;
 
                 try
