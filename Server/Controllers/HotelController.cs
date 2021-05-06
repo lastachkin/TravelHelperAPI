@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using TravelHelperAPI.Models;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace TravelHelperAPI.Controllers
 {
@@ -10,6 +11,12 @@ namespace TravelHelperAPI.Controllers
     public class HotelController : Controller
     {
         TravelHelperContext dbContext = new TravelHelperContext();
+
+        [HttpGet]
+        public List<Hotels> Get()
+        {
+            return dbContext.Hotels.ToList();
+        }
 
         [HttpPost]
         public string Post([FromBody] Hotels value)
