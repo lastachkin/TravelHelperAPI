@@ -24,7 +24,7 @@ namespace TravelHelperAPI.Controllers
             if (!dbContext.Hotels.Any(hotel => hotel.Title.Equals(value.Title) && hotel.Address.Equals(value.Address)))
             {
                 Hotels hotel = new Hotels();
-                hotel.Id = Guid.NewGuid().ToString();
+                hotel.Id = value.Id;
                 hotel.Title = value.Title;
                 hotel.City = value.City;        
                 hotel.Address = value.Address;
@@ -43,6 +43,29 @@ namespace TravelHelperAPI.Controllers
             else
             {
                 return JsonConvert.SerializeObject("Hotel already exists");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public string Put(string id, [FromBody] Hotels value)
+        {
+            try
+            {
+                Hotels hotel = dbContext.Hotels.Where(hotel => hotel.Id.Equals(id)).First();
+
+                hotel.Id = value.Id;
+                hotel.Title = value.Title;
+                hotel.City = value.City;
+                hotel.Address = value.Address;
+
+                dbContext.Update(hotel);
+                dbContext.SaveChanges();
+
+                return JsonConvert.SerializeObject("Hotel updated");
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex.InnerException.Message);
             }
         }
     }
