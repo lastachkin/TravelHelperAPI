@@ -68,5 +68,21 @@ namespace TravelHelperAPI.Controllers
                 return JsonConvert.SerializeObject(ex.InnerException.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public string Delete(string id)
+        {
+            try
+            {
+                Hotels hotel = dbContext.Hotels.FirstOrDefault(hotel => hotel.Id.Equals(id));
+                dbContext.Hotels.Remove(hotel);
+                dbContext.SaveChangesAsync();
+                return JsonConvert.SerializeObject("Hotel deleted");
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex.InnerException.Message);
+            }
+        }
     }
 }
