@@ -14,6 +14,12 @@ namespace TravelHelperAPI.Controllers
     {
         TravelHelperContext dbContext = new TravelHelperContext();
 
+        [HttpGet("{id}")]
+        public List<Rooms> Get(string id)
+        {
+            return dbContext.Rooms.Where(room => room.HotelId.Equals(id)).ToList();
+        }
+
         [HttpPost]
         public string Post([FromBody] Rooms value)
         {
