@@ -47,5 +47,29 @@ namespace TravelHelperAPI.Controllers
                 return JsonConvert.SerializeObject("Room type already exists");
             }
         }
+
+        [HttpPut("{id}")]
+        public string Put(string id, [FromBody] Rooms value)
+        {
+            try
+            {
+                Rooms room = dbContext.Rooms.Where(room => room.Id.Equals(id)).First();
+
+                room.Id = value.Id;
+                room.HotelId = value.HotelId;
+                room.Count = value.Count;
+                room.Cost = value.Cost;
+                room.Type = value.Type;
+
+                dbContext.Update(room);
+                dbContext.SaveChanges();
+
+                return JsonConvert.SerializeObject("Room updated");
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex.InnerException.Message);
+            }
+        }
     }
 }
