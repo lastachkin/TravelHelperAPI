@@ -43,5 +43,21 @@ namespace TravelHelperAPI.Controllers
                 return JsonConvert.SerializeObject("Reservation already exists");
             }
         }
+
+        [HttpDelete("{id}")]
+        public string Delete(string id)
+        {
+            try
+            {
+                Reservations reservation = dbContext.Reservations.FirstOrDefault(reservation => reservation.Id.Equals(id));
+                dbContext.Reservations.Remove(reservation);
+                dbContext.SaveChangesAsync();
+                return JsonConvert.SerializeObject("Reservation deleted");
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex.InnerException.Message);
+            }
+        }
     }
 }
