@@ -9,6 +9,7 @@ using TravelHelperAPI.Models;
 
 namespace TravelHelperAPI.Controllers
 {
+    [Route("api/[controller]")]
     public class ReservationController : Controller
     {
         TravelHelperContext dbContext = new TravelHelperContext();
@@ -16,12 +17,12 @@ namespace TravelHelperAPI.Controllers
         [HttpPost]
         public string Post([FromBody] Reservations value)
         {
-            if (!dbContext.Reservations.Any(reservation => reservation.HotelId.Equals(value.HotelId) && reservation.StartDate.Equals(value.StartDate)))
+            if (!dbContext.Reservations.Any(reservation => reservation.RoomId.Equals(value.RoomId) && reservation.StartDate.Equals(value.StartDate)))
             {
                 Reservations reservation = new Reservations();
                 reservation.Id = value.Id;
                 reservation.UserId = value.UserId;
-                reservation.HotelId = value.HotelId;
+                reservation.RoomId = value.RoomId;
                 reservation.Status = value.Status;
                 reservation.StartDate = value.StartDate;
                 reservation.EndDate = value.EndDate;

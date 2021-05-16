@@ -49,6 +49,10 @@ namespace TravelHelperAPI.Models
                     .HasColumnName("city")
                     .HasMaxLength(50);
 
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasColumnType("text");
+
                 entity.Property(e => e.Rating).HasColumnName("rating");
 
                 entity.Property(e => e.Title)
@@ -69,9 +73,9 @@ namespace TravelHelperAPI.Models
                     .HasColumnName("end_date")
                     .HasColumnType("date");
 
-                entity.Property(e => e.HotelId)
+                entity.Property(e => e.RoomId)
                     .IsRequired()
-                    .HasColumnName("hotel_id")
+                    .HasColumnName("room_id")
                     .HasMaxLength(36)
                     .IsUnicode(false)
                     .IsFixedLength();

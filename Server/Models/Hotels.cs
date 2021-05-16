@@ -10,5 +10,6 @@ namespace TravelHelperAPI.Models
         public string City { get; set; }
         public string Address { get; set; }
         public double? Rating { get; set; }
+        public string Description { get; set; }
     }
 }
