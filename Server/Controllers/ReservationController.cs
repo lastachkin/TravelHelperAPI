@@ -16,6 +16,21 @@ namespace TravelHelperAPI.Controllers
         public List<Reservations> Get(string userId)
         {
             return dbContext.Reservations.Where(reservation => reservation.UserId.Equals(userId)).ToList();
+            /*
+            List<ReservationsResponse> response = new List<ReservationsResponse>();
+            List<Reservations> reservations =  dbContext.Reservations.Where(reservation => reservation.UserId.Equals(userId)).ToList();
+            foreach(Reservations item in reservations)
+            {
+                ReservationsResponse reservationsResponse = new ReservationsResponse();
+                reservationsResponse.Id = item.Id;
+                reservationsResponse.RoomId = item.RoomId;
+                reservationsResponse.UserId = item.UserId;
+                reservationsResponse.Status = item.Status;
+                reservationsResponse.StartDate = item.StartDate.Year.ToString() + "-" + item.StartDate.Month.ToString() + "-" + item.StartDate.Day.ToString();
+                reservationsResponse.EndDate = item.EndDate.Year.ToString() + "-" + item.EndDate.Month.ToString() + "-" + item.EndDate.Day.ToString();
+                response.Add(reservationsResponse);
+            }
+            return response;*/
         }
 
         [HttpPost]
