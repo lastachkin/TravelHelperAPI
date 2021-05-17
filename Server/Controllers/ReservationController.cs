@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TravelHelperAPI.Models;
 
 namespace TravelHelperAPI.Controllers
@@ -13,6 +11,12 @@ namespace TravelHelperAPI.Controllers
     public class ReservationController : Controller
     {
         TravelHelperContext dbContext = new TravelHelperContext();
+
+        [HttpGet("{userId}")]
+        public List<Reservations> Get(string userId)
+        {
+            return dbContext.Reservations.Where(reservation => reservation.UserId.Equals(userId)).ToList();
+        }
 
         [HttpPost]
         public string Post([FromBody] Reservations value)
