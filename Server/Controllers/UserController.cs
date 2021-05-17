@@ -11,6 +11,12 @@ namespace Server.Controllers
     {
         TravelHelperContext dbContext = new TravelHelperContext();
 
+        [HttpGet("{id}")]
+        public Users Get(string id)
+        {
+            return dbContext.Users.Where(user => user.Id.Equals(id)).FirstOrDefault();
+        }
+
         [HttpGet]
         public string Get(string login, string password)
         {
