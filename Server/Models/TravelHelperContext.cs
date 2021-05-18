@@ -17,6 +17,7 @@ namespace TravelHelperAPI.Models
 
         public virtual DbSet<Favorites> Favorites { get; set; }
         public virtual DbSet<Hotels> Hotels { get; set; }
+        public virtual DbSet<Managers> Managers { get; set; }
         public virtual DbSet<Reservations> Reservations { get; set; }
         public virtual DbSet<Rooms> Rooms { get; set; }
         public virtual DbSet<Users> Users { get; set; }
@@ -25,6 +26,7 @@ namespace TravelHelperAPI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=TravelHelper;Trusted_Connection=True;");
             }
         }
@@ -82,6 +84,29 @@ namespace TravelHelperAPI.Models
                     .IsRequired()
                     .HasColumnName("title")
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Managers>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
+                entity.Property(e => e.HotelId)
+                    .IsRequired()
+                    .HasColumnName("hotel_id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasColumnName("user_id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Reservations>(entity =>
