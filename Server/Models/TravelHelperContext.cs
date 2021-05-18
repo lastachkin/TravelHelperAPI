@@ -15,9 +15,9 @@ namespace TravelHelperAPI.Models
         {
         }
 
+        public virtual DbSet<Favorites> Favorites { get; set; }
         public virtual DbSet<Hotels> Hotels { get; set; }
         public virtual DbSet<Reservations> Reservations { get; set; }
-        public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Rooms> Rooms { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
@@ -31,6 +31,29 @@ namespace TravelHelperAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Favorites>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
+                entity.Property(e => e.HotelId)
+                    .IsRequired()
+                    .HasColumnName("hotel_id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasColumnName("user_id")
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+            });
+
             modelBuilder.Entity<Hotels>(entity =>
             {
                 entity.Property(e => e.Id)
@@ -90,35 +113,6 @@ namespace TravelHelperAPI.Models
                     .HasMaxLength(1)
                     .IsUnicode(false)
                     .IsFixedLength();
-
-                entity.Property(e => e.UserId)
-                    .IsRequired()
-                    .HasColumnName("user_id")
-                    .HasMaxLength(36)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-            });
-
-            modelBuilder.Entity<Reviews>(entity =>
-            {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasMaxLength(36)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-
-                entity.Property(e => e.HotelId)
-                    .IsRequired()
-                    .HasColumnName("hotel_id")
-                    .HasMaxLength(36)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-
-                entity.Property(e => e.Rate).HasColumnName("rate");
-
-                entity.Property(e => e.Text)
-                    .HasColumnName("text")
-                    .HasColumnType("text");
 
                 entity.Property(e => e.UserId)
                     .IsRequired()
