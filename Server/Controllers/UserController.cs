@@ -65,5 +65,32 @@ namespace Server.Controllers
                 return JsonConvert.SerializeObject("User already exists");
             }
         }
+
+        [HttpPut("{id}")]
+        public string Put(string id, [FromBody] Users value)
+        {
+            try
+            {
+                Users user = dbContext.Users.Where(user => user.Id.Equals(id)).FirstOrDefault();
+
+                user.Id = value.Id;
+                user.Firstname = value.Firstname;
+                user.Lastname = value.Lastname;
+                user.Role = value.Role;
+                user.Phone = value.Phone;
+                user.Email = value.Email;
+                user.Login = value.Login;
+                user.Password = value.Password;
+
+                dbContext.Update(user);
+                dbContext.SaveChanges();
+
+                return JsonConvert.SerializeObject("User updated");
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex.InnerException.Message);
+            }
+        }
     }
 }
