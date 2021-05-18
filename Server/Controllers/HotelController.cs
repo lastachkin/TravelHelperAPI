@@ -18,6 +18,15 @@ namespace TravelHelperAPI.Controllers
             return dbContext.Hotels.ToList();
         }
 
+        [HttpGet("{city}")]
+        public List<Hotels> Get(string city, string pattern)
+        {
+            if(pattern != null && pattern.Length > 0)
+                return dbContext.Hotels.Where(hotel => hotel.City.Equals(city) && hotel.Title.StartsWith(pattern)).ToList();
+            else
+                return dbContext.Hotels.Where(hotel => hotel.City.Equals(city)).ToList();
+        }
+
         [HttpPost]
         public string Post([FromBody] Hotels value)
         {
