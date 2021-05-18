@@ -29,6 +29,15 @@ namespace TravelHelperAPI.Controllers
             return favoriteHotels;
         }
 
+        [HttpGet]
+        public string Get(string userId, string hotelId)
+        {
+            if (!dbContext.Favorites.Any(favorite => favorite.HotelId.Equals(hotelId) && favorite.UserId.Equals(userId)))
+                return "Does not exist";
+            else
+                return "Exists";
+        }
+
         [HttpPost]
         public string Post([FromBody] Favorites value)
         {
@@ -64,7 +73,7 @@ namespace TravelHelperAPI.Controllers
                 Favorites favorite = dbContext.Favorites.FirstOrDefault(favorite => favorite.UserId.Equals(userId) && favorite.HotelId.Equals(hotelId));
                 dbContext.Favorites.Remove(favorite);
                 dbContext.SaveChangesAsync();
-                return JsonConvert.SerializeObject("Fvorite hotel deleted");
+                return JsonConvert.SerializeObject("Favorite hotel deleted");
             }
             catch (Exception ex)
             {
