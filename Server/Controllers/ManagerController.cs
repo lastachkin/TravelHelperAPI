@@ -25,7 +25,7 @@ namespace TravelHelperAPI.Controllers
         public string Post([FromBody] Managers value)
         {
             Managers manager = new Managers();
-            manager.Id = Guid.NewGuid().ToString();
+            manager.Id = value.Id;
             manager.UserId = value.UserId;
             manager.HotelId = value.HotelId;
 
