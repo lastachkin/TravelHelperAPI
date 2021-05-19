@@ -40,7 +40,7 @@ namespace Server.Controllers
             if (!dbContext.Users.Any(user => user.Login.Equals(value.Login)))
             {
                 Users user = new Users();
-                user.Id =value.Id;//Guid.NewGuid().ToString()
+                user.Id =value.Id;
                 user.Firstname = value.Firstname;
                 user.Lastname = value.Lastname;
                 user.Role = value.Role;
