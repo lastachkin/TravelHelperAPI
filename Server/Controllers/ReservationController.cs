@@ -30,6 +30,7 @@ namespace TravelHelperAPI.Controllers
                 reservation.Status = value.Status;
                 reservation.StartDate = value.StartDate;
                 reservation.EndDate = value.EndDate;
+                reservation.Comment = value.Comment;
 
                 try
                 {
@@ -45,6 +46,33 @@ namespace TravelHelperAPI.Controllers
             else
             {
                 return JsonConvert.SerializeObject("Reservation already exists");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public string Put(string id, [FromBody] Reservations value)
+        {
+            try
+            {
+                Reservations reservation = dbContext.Reservations.Where(reservation => reservation.Id.Equals(id)).FirstOrDefault();
+
+                reservation.Id = value.Id;
+                reservation.Id = value.Id;
+                reservation.UserId = value.UserId;
+                reservation.RoomId = value.RoomId;
+                reservation.Status = value.Status;
+                reservation.StartDate = value.StartDate;
+                reservation.EndDate = value.EndDate;
+                reservation.Comment = value.Comment;
+
+                dbContext.Update(reservation);
+                dbContext.SaveChanges();
+
+                return JsonConvert.SerializeObject("Reservation updated");
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(ex.InnerException.Message);
             }
         }
 

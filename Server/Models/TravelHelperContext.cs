@@ -117,6 +117,10 @@ namespace TravelHelperAPI.Models
                     .IsUnicode(false)
                     .IsFixedLength();
 
+                entity.Property(e => e.Comment)
+                    .HasColumnName("comment")
+                    .HasMaxLength(200);
+
                 entity.Property(e => e.EndDate)
                     .HasColumnName("end_date")
                     .HasColumnType("date");
