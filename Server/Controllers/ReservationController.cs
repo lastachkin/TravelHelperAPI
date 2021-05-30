@@ -21,7 +21,7 @@ namespace TravelHelperAPI.Controllers
         [HttpPost]
         public string Post([FromBody] Reservations value)
         {
-            if (!dbContext.Reservations.Any(reservation => reservation.RoomId.Equals(value.RoomId) && reservation.StartDate.Equals(value.StartDate)))
+            if (!dbContext.Reservations.Any(reservation => reservation.RoomId.Equals(value.RoomId) && reservation.StartDate.Equals(value.StartDate) && reservation.EndDate.Equals(value.EndDate) && reservation.UserId.Equals(value.UserId)))
             {
                 Reservations reservation = new Reservations();
                 reservation.Id = value.Id;

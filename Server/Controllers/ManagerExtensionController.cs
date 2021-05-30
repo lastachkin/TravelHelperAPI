@@ -26,6 +26,7 @@ namespace TravelHelperAPI.Controllers
             response.Name = dbContext.Users.Where(u => u.Id.Equals(reservation.UserId)).FirstOrDefault().Firstname + " " + dbContext.Users.Where(u => u.Id.Equals(reservation.UserId)).FirstOrDefault().Lastname;
             response.Type = dbContext.Rooms.Where(u => u.Id.Equals(reservation.RoomId)).FirstOrDefault().Type;
             response.Cost = (dbContext.Rooms.Where(u => u.Id.Equals(reservation.RoomId)).FirstOrDefault().Cost * diffDays).ToString();
+            response.Comment = reservation.Comment;
 
             return response;
         }
